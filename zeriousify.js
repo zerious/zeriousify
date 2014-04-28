@@ -5,3 +5,10 @@ var api = module.exports;
  * @type {string}
  */
 api.version = require('./package.json').version;
+
+/**
+ * Test a module that requires zeriousify.
+ */
+api.test = function () {
+	require('./test/zeriousifyTest');
+}

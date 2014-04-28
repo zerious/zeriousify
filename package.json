@@ -37,6 +37,7 @@
   "devDependencies": {
     "assert-plus": "~0.1.5",
     "mocha": "~1.17.1",
-    "istanbul": "~0.2.6"
+    "istanbul": "~0.2.6",
+    "npm": "^1.4.7"
   }
 }
