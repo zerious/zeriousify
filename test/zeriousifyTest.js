@@ -156,48 +156,18 @@ describe('ZMS', function () {
 		});
 	}
 
+	var gitignore = '*.seed,*.log,*.csv,*.dat,*.out,*.pid,*.gz,' +
+		'.idea,.project,.DS_Store,.cache,' +
+		'pids,logs,results,coverage,node_modules';
+
 	describe('.gitignore', function () {
-		testIgnoreFile('.gitignore', [
-			'*.seed',
-			'*.log',
-			'*.csv',
-			'*.dat',
-			'*.out',
-			'*.pid',
-			'*.gz',
-			'.idea',
-			'.project',
-			'.DS_Store',
-			'.cache',
-			'pids',
-			'logs',
-			'results',
-			'coverage',
-			'node_modules'
-		]);
+		testIgnoreFile('.gitignore', gitignore.split(','));
 	});
 
+	var npmignore = gitignore + (name == 'zeriousify' ? '' : ',test');
+
 	describe('.npmignore', function () {
-		testIgnoreFile('.npmignore', [
-			'*.seed',
-			'*.log',
-			'*.csv',
-			'*.dat',
-			'*.out',
-			'*.pid',
-			'*.gz',
-			'.idea',
-			'.project',
-			'.DS_Store',
-			'.cache',
-			'.gitignore',
-			'pids',
-			'logs',
-			'results',
-			'coverage',
-			'node_modules',
-			'test'
-		]);
+		testIgnoreFile('.npmignore', npmignore.split(','));
 	});
 
 	describe('MIT-LICENSE.md', function () {
