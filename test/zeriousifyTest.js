@@ -2,6 +2,7 @@ var assert = require('assert-plus');
 var fs = require('fs');
 var cwd = process.cwd();
 var name = cwd.replace(/.*\//, '');
+var zeriousify = require('zeriousify');
 var zPath = require.resolve('zeriousify').replace(/zeriousify\.js/, '');
 var api;
 try {
@@ -65,7 +66,10 @@ describe('ZMS', function () {
 		json.scripts.coveralls = 'istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage';
 		setDefault(json, 'dependencies', {});
 		setDefault(json, 'devDependencies', {});
-		setDefault(json.devDependencies, 'zeriousify', '~' + zeriousifyPackage.version);
+		// If this module isn't zeriousify, make it depend on zeriousify.
+		if (name != 'zeriousify') {
+			setDefault(json.devDependencies, 'zeriousify', '~' + zeriousify.version);
+		}
 		setDefault(json.devDependencies, 'mocha', zeriousifyPackage.devDependencies.mocha);
 		setDefault(json.devDependencies, 'istanbul', zeriousifyPackage.devDependencies.istanbul);
 		setDefault(json.devDependencies, 'assert-plus', zeriousifyPackage.devDependencies['assert-plus']);
