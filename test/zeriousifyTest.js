@@ -56,6 +56,8 @@ describe('ZMS', function () {
 		setDefault(json, 'license', 'MIT');
 		setDefault(json, 'engines', ['node >= 0.2.6']);
 		setDefault(json, 'scripts', {});
+		// A mis-named "script" property instead of "scripts" will cause a warning.
+		delete json.script;
 		json.scripts.test = 'mocha';
 		json.scripts.retest = 'mocha --watch';
 		json.scripts.cover = 'istanbul cover _mocha';
