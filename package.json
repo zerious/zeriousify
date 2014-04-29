@@ -15,14 +15,21 @@
     "tabs",
     "spaces"
   ],
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "zeriousify.js",
+  "bin": {
+    "zeriousify": "bin/cli.js"
+  },
   "homepage": "http://github.com/zerious/zeriousify",
   "repository": "git://github.com/zerious/zeriousify.git",
+  "bugs": {
+    "url": "http://github.com/zerious/zeriousify/issues"
+  },
   "author": "Sam Eubank <sameubank@gmail.com>",
   "contributors": [
     "Sam Eubank <sameubank@gmail.com>"
   ],
+  "license": "MIT",
   "engines": [
     "node >= 0.2.6"
   ],
@@ -33,11 +40,14 @@
     "report": "open coverage/lcov-report/index.html",
     "coveralls": "istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage"
   },
-  "dependencies": {},
+  "dependencies": {
+    "commander": "^2.2.0"
+  },
   "devDependencies": {
     "assert-plus": "~0.1.5",
     "mocha": "~1.17.1",
     "istanbul": "~0.2.6",
-    "npm": "^1.4.7"
+    "npm": "^1.4.7",
+    "zeriousify": "~0.0.1"
   }
 }
