@@ -9,6 +9,7 @@ try {
 	api = require(cwd);
 }
 catch (e) {
+	console.error(e);
 	api = defaultApi;
 }
 
@@ -54,11 +55,13 @@ describe('ZMS', function () {
 		setDefault(json, 'bugs', {url: 'http://github.com/zerious/' + name + '/issues'});
 		setDefault(json, 'author', zeriousifyPackage.author);
 		setDefault(json, 'contributors', zeriousifyPackage.author);
-		setDefault(json, 'license', 'MIT');
+		setDefault(json, 'licenses', [{type: 'MIT', url: 'http://github.com/zerious/' + name + '/blob/master/MIT-LICENSE.md'}]);
 		setDefault(json, 'engines', ['node >= 0.2.6']);
 		setDefault(json, 'scripts', {});
 		// A mis-named "script" property instead of "scripts" will cause a warning.
 		delete json.script;
+		// A mis-named "license" property instead of "licenses" will omit the license from npmjs.org.
+		delete json.license;
 		json.scripts.test = 'mocha';
 		json.scripts.retest = 'mocha --watch';
 		json.scripts.cover = 'istanbul cover _mocha';
@@ -103,18 +106,28 @@ describe('ZMS', function () {
 		describe(filename, function () {
 			it('should exist', function (done) {
 				var content = getContent(filename);
-				if (!content) {
-					function writeFile(content) {
-						fs.mkdir(cwd + '/test', function () {
-							setContent(filename, content, done);
-						});
-					}
+				function writeFile(content) {
+					fs.mkdir(cwd + '/test', function () {
+						setContent(filename, content, done);
+					});
+				}
+				function writeDefaultContent() {
 					if (defaultContent) {
 						writeFile(defaultContent);
 					} else {
 						fs.readFile(zPath + filename, function (err, content) {
 							writeFile('' + content);
 						});
+					}
+				}
+				if (!content) {
+					writeDefaultContent(content);
+				} else if (filename == '.travis.yml') {
+					var clean = content.replace(/\t/g, '  ');
+					if (clean == content) {
+						done();
+					} else {
+						writeFile(clean);
 					}
 				} else {
 					done();
@@ -219,13 +232,14 @@ describe('ZMS', function () {
 		});
 
 		describe('mentions API methods', function () {
-			for (var property in api) {
-				if (property[0] != '_' && api.hasOwnProperty(property)) {
-					it('including ' + property, function () {
-						var flags = (property == 'version' ? 'i' : '');
-						var pattern = new RegExp(property, flags);
-						assert.equal(pattern.test(content), true);
-					});
+			for (var key in api) {
+				if (key[0] != '_' && api.hasOwnProperty(key) && key != 'version') {
+					(function (property) {
+						it('including ' + property, function () {
+							var documented = content.indexOf(property) > -1 ? property : 'NOT FOUND';
+							assert.equal(documented, property);
+						});
+					})(key);
 				}
 			}
 		});
