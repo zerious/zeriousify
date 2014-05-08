@@ -15,7 +15,7 @@
     "tabs",
     "spaces"
   ],
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "zeriousify.js",
   "bin": {
     "zeriousify": "bin/cli.js"
@@ -46,11 +46,11 @@
     "coveralls": "istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage"
   },
   "dependencies": {
-    "commander": "^2.2.0",
-    "assert-plus": "~0.1.5",
-    "mocha": "~1.17.1",
-    "istanbul": "~0.2.6",
-    "npm": "^1.4.7"
+    "commander": "2.2.0",
+    "assert-plus": "0.1.5",
+    "mocha": "1.18.2",
+    "istanbul": "0.2.8",
+    "npm": "1.4.7"
   },
   "devDependencies": {}
 }
