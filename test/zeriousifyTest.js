@@ -10,7 +10,7 @@ try {
 }
 catch (e) {
 	console.error(e);
-	api = defaultApi;
+	api = {};
 }
 
 describe('ZMS', function () {
@@ -73,9 +73,10 @@ describe('ZMS', function () {
 		if (name != 'zeriousify') {
 			setDefault(json.devDependencies, 'zeriousify', '~' + zeriousify.version);
 		}
-		setDefault(json.devDependencies, 'mocha', zeriousifyPackage.devDependencies.mocha);
-		setDefault(json.devDependencies, 'istanbul', zeriousifyPackage.devDependencies.istanbul);
-		setDefault(json.devDependencies, 'assert-plus', zeriousifyPackage.devDependencies['assert-plus']);
+		setDefault(json.devDependencies, 'assert-plus', zeriousifyPackage.dependencies['assert-plus']);
+		setDefault(json.devDependencies, 'mocha', zeriousifyPackage.dependencies.mocha);
+		setDefault(json.devDependencies, 'istanbul', zeriousifyPackage.dependencies.istanbul);
+		setDefault(json.devDependencies, 'coveralls', zeriousifyPackage.dependencies.coveralls)
 
 		it('should match API version (' + api.version + ')', function () {
 			assert.equal(json.version, api.version);
