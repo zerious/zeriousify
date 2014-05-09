@@ -71,7 +71,7 @@ describe('ZMS', function () {
 		setDefault(json, 'devDependencies', {});
 		// If this module isn't zeriousify, make it depend on zeriousify.
 		if (name != 'zeriousify') {
-			setDefault(json.devDependencies, 'zeriousify', '~' + zeriousify.version);
+			setDefault(json.devDependencies, 'zeriousify', zeriousify.version);
 		}
 		setDefault(json.devDependencies, 'assert-plus', zeriousifyPackage.dependencies['assert-plus']);
 		setDefault(json.devDependencies, 'mocha', zeriousifyPackage.dependencies.mocha);
