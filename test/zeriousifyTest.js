@@ -4,6 +4,7 @@ var cwd = process.cwd();
 var name = cwd.replace(/.*\//, '');
 var zeriousify = require('zeriousify');
 var zPath = require.resolve('zeriousify').replace(/zeriousify\.js/, '');
+var isModule = !fs.existsSync('app.js');
 var api;
 try {
 	api = require(cwd);
@@ -55,13 +56,17 @@ describe('ZMS', function () {
 		setDefault(json, 'bugs', {url: 'http://github.com/zerious/' + name + '/issues'});
 		setDefault(json, 'author', zeriousifyPackage.author);
 		setDefault(json, 'contributors', zeriousifyPackage.author);
-		setDefault(json, 'licenses', [{type: 'MIT', url: 'http://github.com/zerious/' + name + '/blob/master/MIT-LICENSE.md'}]);
+		if (isModule) {
+			setDefault(json, 'licenses', [{type: 'MIT', url: 'http://github.com/zerious/' + name + '/blob/master/MIT-LICENSE.md'}]);
+		}
 		setDefault(json, 'engines', ['node >= 0.2.6']);
 		setDefault(json, 'scripts', {});
 		// A mis-named "script" property instead of "scripts" will cause a warning.
 		delete json.script;
-		// A mis-named "license" property instead of "licenses" will omit the license from npmjs.org.
-		delete json.license;
+		if (isModule) {
+			// A mis-named "license" property instead of "licenses" will omit the license from npmjs.org.
+			delete json.license;
+		}
 		json.scripts.test = 'mocha';
 		json.scripts.retest = 'mocha --watch';
 		json.scripts.cover = 'istanbul cover _mocha';
@@ -69,18 +74,22 @@ describe('ZMS', function () {
 		json.scripts.coveralls = 'istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage';
 		setDefault(json, 'dependencies', {});
 		setDefault(json, 'devDependencies', {});
+
 		// If this module isn't zeriousify, make it depend on zeriousify.
 		if (name != 'zeriousify') {
 			setDefault(json.devDependencies, 'zeriousify', zeriousify.version);
 		}
+
 		setDefault(json.devDependencies, 'assert-plus', zeriousifyPackage.dependencies['assert-plus']);
 		setDefault(json.devDependencies, 'mocha', zeriousifyPackage.dependencies.mocha);
 		setDefault(json.devDependencies, 'istanbul', zeriousifyPackage.dependencies.istanbul);
 		setDefault(json.devDependencies, 'coveralls', zeriousifyPackage.dependencies.coveralls)
 
-		it('should match API version (' + api.version + ')', function () {
-			assert.equal(json.version, api.version);
-		});
+		if (isModule) {
+			it('should match API version (' + api.version + ')', function () {
+				assert.equal(json.version, api.version);
+			});
+		}
 
 		var clean = JSON.stringify(json, null, '  ') + '\n';
 
@@ -140,7 +149,7 @@ describe('ZMS', function () {
 	testFile('.travis.yml');
 	testFile('test/mocha.opts');
 
-	testFile('test/' + name + 'Test.js',
+	testFile('test/' + (isModule ? name : 'app') + 'Test.js',
 		"var assert = require('assert-plus');\n\n" +
 		"require('zeriousify').test();\n\n" +
 		"describe('API', function () {\n\t/\/TODO: Write API tests.\n})\n");
@@ -184,21 +193,23 @@ describe('ZMS', function () {
 		testIgnoreFile('.npmignore', npmignore.split(','));
 	});
 
-	describe('MIT-LICENSE.md', function () {
-		var content = getContent('MIT-LICENSE.md');
+	if (isModule) {
+		describe('MIT-LICENSE.md', function () {
+			var content = getContent('MIT-LICENSE.md');
 
-		it('exists', function (done) {
-			if (!/MIT License/.test(content)) {
-				var year = (new Date()).getFullYear();
-				fs.readFile(zPath + 'MIT-LICENSE.md', function (err, content) {
-					license = ('' + content).replace(/[0-9]{4}/, year);
-					setContent('MIT-LICENSE.md', license, done);
-				});
-			} else {
-				done();
-			}
+			it('exists', function (done) {
+				if (!/MIT License/.test(content)) {
+					var year = (new Date()).getFullYear();
+					fs.readFile(zPath + 'MIT-LICENSE.md', function (err, content) {
+						license = ('' + content).replace(/[0-9]{4}/, year);
+						setContent('MIT-LICENSE.md', license, done);
+					});
+				} else {
+					done();
+				}
+			});
 		});
-	});
+	}
 
 	describe('README.md', function () {
 		var pattern = new RegExp(name, 'i');
@@ -213,37 +224,39 @@ describe('ZMS', function () {
 			}
 		});
 
-		it('has badges', function (done) {
-			var hasNpm = /badge\.fury\.io/.test(content);
-			var hasTravis = /travis-ci\.org/.test(content);
-			var hasCover = /coveralls\.io/.test(content);
-			var hasDeps = /david-dm\.org/.test(content);
-			var hasTip = /gittip/.test(content);
-			if (!hasNpm || !hasTravis || !hasCover || !hasDeps || !hasTip) {
-				content += '\n' +
-					'[![NPM Version](https://badge.fury.io/js/' + name + '.png)](http://badge.fury.io/js/' + name + ')\n' +
-					'[![Build Status](https://travis-ci.org/zerious/' + name + '.png?branch=master)](https://travis-ci.org/zerious/' + name + ')\n' +
-					'[![Code Coverage](https://coveralls.io/repos/zerious/' + name + '/badge.png?branch=master)](https://coveralls.io/r/zerious/' + name + ')\n' +
-					'[![Dependencies](https://david-dm.org/zerious/' + name + '.png?theme=shields.io)](https://david-dm.org/zerious/' + name + ')\n' +
-					'[![Support](http://img.shields.io/gittip/zerious.png)](https://www.gittip.com/zerious/)\n';
-				setContent('README.md', content, done);
-			} else {
-				done();
-			}
-		});
-
-		describe('mentions API methods', function () {
-			for (var key in api) {
-				if (key[0] != '_' && api.hasOwnProperty(key) && key != 'version') {
-					(function (property) {
-						it('including ' + property, function () {
-							var documented = content.indexOf(property) > -1 ? property : 'NOT FOUND';
-							assert.equal(documented, property);
-						});
-					})(key);
+		if (isModule) {
+			it('has badges', function (done) {
+				var hasNpm = /badge\.fury\.io/.test(content);
+				var hasTravis = /travis-ci\.org/.test(content);
+				var hasCover = /coveralls\.io/.test(content);
+				var hasDeps = /david-dm\.org/.test(content);
+				var hasTip = /gittip/.test(content);
+				if (!hasNpm || !hasTravis || !hasCover || !hasDeps || !hasTip) {
+					content += '\n' +
+						'[![NPM Version](https://badge.fury.io/js/' + name + '.png)](http://badge.fury.io/js/' + name + ')\n' +
+						'[![Build Status](https://travis-ci.org/zerious/' + name + '.png?branch=master)](https://travis-ci.org/zerious/' + name + ')\n' +
+						'[![Code Coverage](https://coveralls.io/repos/zerious/' + name + '/badge.png?branch=master)](https://coveralls.io/r/zerious/' + name + ')\n' +
+						'[![Dependencies](https://david-dm.org/zerious/' + name + '.png?theme=shields.io)](https://david-dm.org/zerious/' + name + ')\n' +
+						'[![Support](http://img.shields.io/gittip/zerious.png)](https://www.gittip.com/zerious/)\n';
+					setContent('README.md', content, done);
+				} else {
+					done();
 				}
-			}
-		});
+			});
+
+			describe('mentions API methods', function () {
+				for (var key in api) {
+					if (key[0] != '_' && api.hasOwnProperty(key) && key != 'version') {
+						(function (property) {
+							it('including ' + property, function () {
+								var documented = content.indexOf(property) > -1 ? property : 'NOT FOUND';
+								assert.equal(documented, property);
+							});
+						})(key);
+					}
+				}
+			});
+		}
 	});
 
 });
