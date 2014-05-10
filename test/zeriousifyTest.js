@@ -55,7 +55,7 @@ describe('ZMS', function () {
 		setDefault(json, 'repository', 'http://github.com/zerious/' + name + '.git');
 		setDefault(json, 'bugs', {url: 'http://github.com/zerious/' + name + '/issues'});
 		setDefault(json, 'author', zeriousifyPackage.author);
-		setDefault(json, 'contributors', zeriousifyPackage.author);
+		setDefault(json, 'contributors', zeriousifyPackage.contributors);
 		if (isModule) {
 			setDefault(json, 'licenses', [{type: 'MIT', url: 'http://github.com/zerious/' + name + '/blob/master/MIT-LICENSE.md'}]);
 		}
