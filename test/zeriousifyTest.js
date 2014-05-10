@@ -181,13 +181,15 @@ describe('ZMS', function () {
 
 	var gitignore = '*.seed,*.log,*.csv,*.dat,*.out,*.pid,*.gz,' +
 		'.idea,.project,.DS_Store,.cache,' +
-		'pids,logs,results,coverage,node_modules';
+		'pids,logs,results,coverage,node_modules,build';
 
 	describe('.gitignore', function () {
 		testIgnoreFile('.gitignore', gitignore.split(','));
 	});
 
-	var npmignore = gitignore + (name == 'zeriousify' ? '' : ',test');
+	var npmignore = gitignore +
+		(name == 'zeriousify' ? '' : ',test') +
+		',.travis.yml';
 
 	describe('.npmignore', function () {
 		testIgnoreFile('.npmignore', npmignore.split(','));

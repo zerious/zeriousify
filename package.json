@@ -15,7 +15,7 @@
     "tabs",
     "spaces"
   ],
-  "version": "0.1.2",
+  "version": "0.1.3",
   "main": "zeriousify.js",
   "bin": {
     "zeriousify": "bin/cli.js"
