@@ -11,7 +11,7 @@ try {
 }
 catch (e) {
 	console.error(e);
-	api = {};
+	api = {version: '0.0.0'};
 }
 
 describe('ZMS', function () {
@@ -35,21 +35,21 @@ describe('ZMS', function () {
 		});
 	}
 
+	function setDefault(object, key, value) {
+		object[key] = object[key] || value;
+	}
+
 	describe('package.json', function () {
 
 		var content = getContent('package.json') || '{}';
 		var json = JSON.parse(content);
-
-		function setDefault(object, key, value) {
-			object[key] = object[key] || value;
-		}
 
 		var zeriousifyPackage = require('../package.json');
 
 		setDefault(json, 'name', name);
 		setDefault(json, 'description', name + ' is a Zerious module');
 		setDefault(json, 'keywords', [name]);
-		setDefault(json, 'version', '0.0.0');
+		setDefault(json, 'version', api.version || '0.0.0');
 		setDefault(json, 'main', name + '.js');
 		setDefault(json, 'homepage', 'http://github.com/zerious/' + name);
 		setDefault(json, 'repository', 'http://github.com/zerious/' + name + '.git');
