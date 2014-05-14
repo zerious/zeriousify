@@ -188,8 +188,7 @@ describe('ZMS', function () {
 	});
 
 	var npmignore = gitignore +
-		(name == 'zeriousify' ? '' : ',test') +
-		',.travis.yml';
+		(name == 'zeriousify' ? '' : ',test') + ',.travis.yml,.npmignore';
 
 	describe('.npmignore', function () {
 		testIgnoreFile('.npmignore', npmignore.split(','));
