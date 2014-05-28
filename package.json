@@ -15,7 +15,7 @@
     "tabs",
     "spaces"
   ],
-  "version": "0.1.4",
+  "version": "0.1.5",
   "main": "zeriousify.js",
   "bin": {
     "zeriousify": "bin/cli.js"
@@ -48,7 +48,7 @@
   "dependencies": {
     "assert-plus": "0.1.5",
     "mocha": "1.18.2",
-    "istanbul": "0.2.9",
+    "istanbul": "0.2.10",
     "coveralls": "2.10.0",
     "commander": "2.2.0",
     "npm": "1.4.10"
@@ -56,7 +56,7 @@
   "devDependencies": {
     "assert-plus": "0.1.5",
     "mocha": "1.18.2",
-    "istanbul": "0.2.9",
+    "istanbul": "0.2.10",
     "coveralls": "2.10.0"
   }
 }
