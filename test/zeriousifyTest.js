@@ -83,20 +83,14 @@ describe('ZMS', function () {
     setDefault(json.devDependencies, 'assert-plus', zeriousifyPackage.dependencies['assert-plus']);
     setDefault(json.devDependencies, 'mocha', zeriousifyPackage.dependencies.mocha);
     setDefault(json.devDependencies, 'istanbul', zeriousifyPackage.dependencies.istanbul);
-    setDefault(json.devDependencies, 'coveralls', zeriousifyPackage.dependencies.coveralls)
-
-    if (isModule) {
-      it('should match API version (' + api.version + ')', function () {
-        assert.equal(json.version, api.version);
-      });
-    }
+    setDefault(json.devDependencies, 'coveralls', zeriousifyPackage.dependencies.coveralls);
 
     var clean = JSON.stringify(json, null, '  ') + '\n';
 
     function saveJson(done) {
       clean = JSON.stringify(json, null, '  ') + '\n';
       setContent('package.json', clean, done);
-    };
+    }
 
     it('should be unchanged after parsing and stringifying with 2 spaces', function (done) {
       // If the content isn't equivalent to itself parsed and
@@ -246,14 +240,15 @@ describe('ZMS', function () {
       });
 
       describe('mentions API methods', function () {
+        var checkForDocumentation = function (property) {
+          it('including ' + property, function () {
+            var documented = content.indexOf(property) > -1 ? property : 'NOT FOUND';
+            assert.equal(documented, property);
+          });
+        };
         for (var key in api) {
           if (key[0] != '_' && api.hasOwnProperty(key) && key != 'version') {
-            (function (property) {
-              it('including ' + property, function () {
-                var documented = content.indexOf(property) > -1 ? property : 'NOT FOUND';
-                assert.equal(documented, property);
-              });
-            })(key);
+            checkForDocumentation(key);
           }
         }
       });
