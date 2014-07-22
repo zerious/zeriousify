@@ -14,7 +14,7 @@ catch (e) {
   api = {version: '0.0.0'};
 }
 
-describe('ZMS', function () {
+describe('zeriousify', function () {
 
   function getContent(filename) {
     try {
@@ -67,11 +67,12 @@ describe('ZMS', function () {
       // A mis-named "license" property instead of "licenses" will omit the license from npmjs.org.
       delete json.license;
     }
-    json.scripts.test = 'mocha';
-    json.scripts.retest = 'mocha --watch';
-    json.scripts.cover = 'istanbul cover _mocha';
-    json.scripts.report = 'open coverage/lcov-report/index.html';
-    json.scripts.coveralls = 'istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage';
+    var scripts = json.scripts;
+    setDefault(scripts, 'test', 'mocha');
+    setDefault(scripts, 'retest', 'mocha --watch');
+    setDefault(scripts, 'cover', 'istanbul cover _mocha');
+    setDefault(scripts, 'report', 'open coverage/lcov-report/index.html');
+    setDefault(scripts, 'coveralls', 'istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage');
     setDefault(json, 'dependencies', {});
     setDefault(json, 'devDependencies', {});
 
