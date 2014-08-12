@@ -1,4 +1,4 @@
-var assert = require('assert-plus');
+var is = require('exam/lib/is');
 var fs = require('fs');
 var cwd = process.cwd();
 var name = cwd.replace(/.*\//, '');
@@ -68,11 +68,11 @@ describe('zeriousify', function () {
       delete json.license;
     }
     var scripts = json.scripts;
-    setDefault(scripts, 'test', 'mocha');
-    setDefault(scripts, 'retest', 'mocha --watch');
-    setDefault(scripts, 'cover', 'istanbul cover _mocha');
+    setDefault(scripts, 'test', './node_modules/exam/exam.js');
+    setDefault(scripts, 'retest', './node_modules/exam/exam.js --watch');
+    setDefault(scripts, 'cover', 'istanbul cover ./node_modules/exam/exam.js');
     setDefault(scripts, 'report', 'open coverage/lcov-report/index.html');
-    setDefault(scripts, 'coveralls', 'istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage');
+    setDefault(scripts, 'coveralls', 'istanbul cover ./node_modules/exam/exam.js --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage');
     setDefault(json, 'dependencies', {});
     setDefault(json, 'devDependencies', {});
 
@@ -81,8 +81,7 @@ describe('zeriousify', function () {
       setDefault(json.devDependencies, 'zeriousify', zeriousify.version);
     }
 
-    setDefault(json.devDependencies, 'assert-plus', zeriousifyPackage.dependencies['assert-plus']);
-    setDefault(json.devDependencies, 'mocha', zeriousifyPackage.dependencies.mocha);
+    setDefault(json.devDependencies, 'exam', zeriousifyPackage.dependencies.exam);
     setDefault(json.devDependencies, 'istanbul', zeriousifyPackage.dependencies.istanbul);
     setDefault(json.devDependencies, 'coveralls', zeriousifyPackage.dependencies.coveralls);
 
@@ -145,7 +144,6 @@ describe('zeriousify', function () {
   testFile('test/mocha.opts');
 
   testFile('test/' + (isModule ? name : 'app') + 'Test.js',
-    "var assert = require('assert-plus');\n\n" +
     "require('zeriousify').test();\n\n" +
     "describe('API', function () {\n\t/\/TODO: Write API tests.\n})\n");
 
@@ -243,8 +241,7 @@ describe('zeriousify', function () {
       describe('mentions API methods', function () {
         var checkForDocumentation = function (property) {
           it('including ' + property, function () {
-            var documented = content.indexOf(property) > -1 ? property : 'NOT FOUND';
-            assert.equal(documented, property);
+            is.in(property, content);
           });
         };
         for (var key in api) {
