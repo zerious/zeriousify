@@ -1,13 +1,17 @@
-var api = module.exports;
+var zeriousify = module.exports;
 
 /**
  * Expose the version to module users.
  */
-api.version = require('./package.json').version;
+Object.defineProperty(zeriousify, 'version', {
+  get: function () {
+    return require('./package.json').version;
+  }
+});
 
 /**
  * Test a module that requires zeriousify.
  */
-api.test = function () {
+zeriousify.test = function () {
   require('./test/zeriousifyTest');
-}
+};

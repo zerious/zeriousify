@@ -2,8 +2,8 @@ var is = require('exam/lib/is');
 var fs = require('fs');
 var cwd = process.cwd();
 var name = cwd.replace(/.*\//, '');
-var zeriousify = require('zeriousify');
-var zPath = require.resolve('zeriousify').replace(/zeriousify\.js/, '');
+var zPath = __dirname.replace(/[\/\\]test$/, '');
+var zeriousify = require(zPath + '/zeriousify.js');
 var isModule = !fs.existsSync('app.js');
 var api;
 try {

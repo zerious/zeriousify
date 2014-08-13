@@ -15,7 +15,7 @@
     "tabs",
     "spaces"
   ],
-  "version": "0.1.8",
+  "version": "0.1.9",
   "main": "zeriousify.js",
   "bin": {
     "zeriousify": "bin/cli.js"
@@ -46,12 +46,11 @@
     "coveralls": "istanbul cover ./node_modules/exam/exam.js --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage"
   },
   "dependencies": {
-    "commander": "2.2.0",
-    "npm": "1.4.10"
+    "commander": "2.2.0"
   },
   "devDependencies": {
     "exam": "0.0.5",
-    "istanbul": "0.2.10",
+    "istanbul": "0.2.11",
     "coveralls": "2.10.0"
   }
 }
