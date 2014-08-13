@@ -1,10 +1,10 @@
 # Zeriousify
 
 [![NPM Version](https://badge.fury.io/js/zeriousify.png)](http://badge.fury.io/js/zeriousify)
-[![Build Status](https://travis-ci.org/zerious/zeriousify.png?branch=master)](https://travis-ci.org/zerious/zeriousify)
-[![Code Coverage](https://coveralls.io/repos/zerious/zeriousify/badge.png?branch=master)](https://coveralls.io/r/zerious/zeriousify)
-[![Dependencies](https://david-dm.org/zerious/zeriousify.png?theme=shields.io)](https://david-dm.org/zerious/zeriousify)
-[![Support](http://img.shields.io/gittip/zerious.png)](https://www.gittip.com/zerious/)
+[![Build Status](https://travis-ci.org/lighterio/zeriousify.png?branch=master)](https://travis-ci.org/lighterio/zeriousify)
+[![Code Coverage](https://coveralls.io/repos/lighterio/zeriousify/badge.png?branch=master)](https://coveralls.io/r/lighterio/zeriousify)
+[![Dependencies](https://david-dm.org/lighterio/zeriousify.png?theme=shields.io)](https://david-dm.org/lighterio/zeriousify)
+[![Support](http://img.shields.io/gittip/zerious.png)](https://www.gittip.com/lighterio/)
 
 Zeriousify is a Node.js module for ensuring that your package adheres to the Zerious
 Module Standard (ZMS).

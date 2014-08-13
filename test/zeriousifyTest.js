@@ -51,13 +51,13 @@ describe('zeriousify', function () {
     setDefault(json, 'keywords', [name]);
     setDefault(json, 'version', api.version || '0.0.0');
     setDefault(json, 'main', name + '.js');
-    setDefault(json, 'homepage', 'http://github.com/zerious/' + name);
-    setDefault(json, 'repository', 'http://github.com/zerious/' + name + '.git');
-    setDefault(json, 'bugs', {url: 'http://github.com/zerious/' + name + '/issues'});
+    setDefault(json, 'homepage', 'http://github.com/lighterio/' + name);
+    setDefault(json, 'repository', 'http://github.com/lighterio/' + name + '.git');
+    setDefault(json, 'bugs', {url: 'http://github.com/lighterio/' + name + '/issues'});
     setDefault(json, 'author', zeriousifyPackage.author);
     setDefault(json, 'contributors', zeriousifyPackage.contributors);
     if (isModule) {
-      setDefault(json, 'licenses', [{type: 'MIT', url: 'http://github.com/zerious/' + name + '/blob/master/MIT-LICENSE.md'}]);
+      setDefault(json, 'licenses', [{type: 'MIT', url: 'http://github.com/lighterio/' + name + '/blob/master/MIT-LICENSE.md'}]);
     }
     setDefault(json, 'engines', ['node >= 0.2.6']);
     setDefault(json, 'scripts', {});
@@ -228,10 +228,10 @@ describe('zeriousify', function () {
         if (!hasNpm || !hasTravis || !hasCover || !hasDeps || !hasTip) {
           content += '\n' +
             '[![NPM Version](https://badge.fury.io/js/' + name + '.png)](http://badge.fury.io/js/' + name + ')\n' +
-            '[![Build Status](https://travis-ci.org/zerious/' + name + '.png?branch=master)](https://travis-ci.org/zerious/' + name + ')\n' +
-            '[![Code Coverage](https://coveralls.io/repos/zerious/' + name + '/badge.png?branch=master)](https://coveralls.io/r/zerious/' + name + ')\n' +
-            '[![Dependencies](https://david-dm.org/zerious/' + name + '.png?theme=shields.io)](https://david-dm.org/zerious/' + name + ')\n' +
-            '[![Support](http://img.shields.io/gittip/zerious.png)](https://www.gittip.com/zerious/)\n';
+            '[![Build Status](https://travis-ci.org/lighterio/' + name + '.png?branch=master)](https://travis-ci.org/lighterio/' + name + ')\n' +
+            '[![Code Coverage](https://coveralls.io/repos/lighterio/' + name + '/badge.png?branch=master)](https://coveralls.io/r/lighterio/' + name + ')\n' +
+            '[![Dependencies](https://david-dm.org/lighterio/' + name + '.png?theme=shields.io)](https://david-dm.org/lighterio/' + name + ')\n' +
+            '[![Support](http://img.shields.io/gittip/zerious.png)](https://www.gittip.com/lighterio/)\n';
           setContent('README.md', content, done);
         } else {
           done();

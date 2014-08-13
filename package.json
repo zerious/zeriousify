@@ -21,9 +21,9 @@
     "zeriousify": "bin/cli.js"
   },
   "homepage": "http://lighter.io/zeriousify",
-  "repository": "git://github.com/zerious/zeriousify.git",
+  "repository": "git://github.com/lighterio/zeriousify.git",
   "bugs": {
-    "url": "http://github.com/zerious/zeriousify/issues"
+    "url": "http://github.com/lighterio/zeriousify/issues"
   },
   "author": "Sam Eubank <sameubank@gmail.com>",
   "contributors": [
@@ -32,7 +32,7 @@
   "licenses": [
     {
       "type": "MIT",
-      "url": "http://github.com/zerious/zeriousify/blob/master/MIT-LICENSE.md"
+      "url": "http://github.com/lighterio/zeriousify/blob/master/MIT-LICENSE.md"
     }
   ],
   "engines": [
