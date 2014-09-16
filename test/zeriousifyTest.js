@@ -51,25 +51,20 @@ describe('zeriousify', function () {
     setDefault(json, 'keywords', [name]);
     setDefault(json, 'version', api.version || '0.0.0');
     setDefault(json, 'main', name + '.js');
-    setDefault(json, 'homepage', 'http://github.com/lighterio/' + name);
-    setDefault(json, 'repository', 'http://github.com/lighterio/' + name + '.git');
-    setDefault(json, 'bugs', {url: 'http://github.com/lighterio/' + name + '/issues'});
+    setDefault(json, 'homepage', 'https://github.com/lighterio/' + name);
+    setDefault(json, 'repository', 'https://github.com/lighterio/' + name + '.git');
+    setDefault(json, 'bugs', {url: 'https://github.com/lighterio/' + name + '/issues'});
     setDefault(json, 'author', zeriousifyPackage.author);
     setDefault(json, 'contributors', zeriousifyPackage.contributors);
     if (isModule) {
-      setDefault(json, 'licenses', [{type: 'MIT', url: 'http://github.com/lighterio/' + name + '/blob/master/MIT-LICENSE.md'}]);
+      setDefault(json, 'license', 'MIT');
     }
     setDefault(json, 'engines', ['node >= 0.2.6']);
     setDefault(json, 'scripts', {});
     // A mis-named "script" property instead of "scripts" will cause a warning.
     delete json.script;
-    if (isModule) {
-      // A mis-named "license" property instead of "licenses" will omit the license from npmjs.org.
-      delete json.license;
-    }
     var scripts = json.scripts;
     setDefault(scripts, 'test', './node_modules/exam/exam.js');
-    setDefault(scripts, 'retest', './node_modules/exam/exam.js --watch');
     setDefault(scripts, 'cover', 'istanbul cover ./node_modules/exam/exam.js');
     setDefault(scripts, 'report', 'open coverage/lcov-report/index.html');
     setDefault(scripts, 'coveralls', 'istanbul cover ./node_modules/exam/exam.js --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage');
@@ -220,18 +215,18 @@ describe('zeriousify', function () {
 
     if (isModule) {
       it('has badges', function (done) {
-        var hasNpm = /badge\.fury\.io/.test(content);
+        var hasNpm = /npmjs\.org/.test(content);
         var hasTravis = /travis-ci\.org/.test(content);
         var hasCover = /coveralls\.io/.test(content);
         var hasDeps = /david-dm\.org/.test(content);
-        var hasTip = /gittip/.test(content);
+        var hasTip = /(gratipay|gittip)\.com/.test(content);
         if (!hasNpm || !hasTravis || !hasCover || !hasDeps || !hasTip) {
           content += '\n' +
-            '[![NPM Version](https://badge.fury.io/js/' + name + '.png)](http://badge.fury.io/js/' + name + ')\n' +
-            '[![Build Status](https://travis-ci.org/lighterio/' + name + '.png?branch=master)](https://travis-ci.org/lighterio/' + name + ')\n' +
-            '[![Code Coverage](https://coveralls.io/repos/lighterio/' + name + '/badge.png?branch=master)](https://coveralls.io/r/lighterio/' + name + ')\n' +
-            '[![Dependencies](https://david-dm.org/lighterio/' + name + '.png?theme=shields.io)](https://david-dm.org/lighterio/' + name + ')\n' +
-            '[![Support](http://img.shields.io/gittip/zerious.png)](https://www.gittip.com/lighterio/)\n';
+            '[![NPM Version](https://img.shields.io/npm/v/' + name + '.svg) ![Downloads](https://img.shields.io/npm/dm/' + name + '.svg)](https://npmjs.org/package/' + name + '' + name + ')\n' +
+            '[![Build Status](https://img.shields.io/travis/lighterio/' + name + '.svg)](https://travis-ci.org/lighterio/' + name + ')\n' +
+            '[![Code Coverage](https://img.shields.io/coveralls/lighterio/' + name + '/master.svg)](https://coveralls.io/r/lighterio/' + name + ')\n' +
+            '[![Dependencies](https://img.shields.io/david/lighterio/' + name + '.svg)](https://david-dm.org/lighterio/' + name + ')\n' +
+            '[![Support](https://img.shields.io/gratipay/Lighter.io.svg)](https://gratipay.com/Lighter.io/)\n';
           setContent('README.md', content, done);
         } else {
           done();
@@ -241,7 +236,7 @@ describe('zeriousify', function () {
       describe('mentions API methods', function () {
         var checkForDocumentation = function (property) {
           it('including ' + property, function () {
-            is.in(property, content);
+            is.in(content, property);
           });
         };
         for (var key in api) {

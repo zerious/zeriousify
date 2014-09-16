@@ -15,25 +15,17 @@
     "tabs",
     "spaces"
   ],
-  "version": "0.1.9",
+  "version": "0.1.10",
   "main": "zeriousify.js",
   "bin": {
     "zeriousify": "bin/cli.js"
   },
   "homepage": "http://lighter.io/zeriousify",
-  "repository": "git://github.com/lighterio/zeriousify.git",
-  "bugs": {
-    "url": "http://github.com/lighterio/zeriousify/issues"
-  },
+  "repository": "https://github.com/lighterio/zeriousify.git",
+  "bugs": "https://github.com/lighterio/zeriousify/issues",
   "author": "Sam Eubank <sameubank@gmail.com>",
   "contributors": [
     "Sam Eubank <sameubank@gmail.com>"
-  ],
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://github.com/lighterio/zeriousify/blob/master/MIT-LICENSE.md"
-    }
   ],
   "engines": [
     "node >= 0.2.6"
@@ -49,8 +41,9 @@
     "commander": "2.2.0"
   },
   "devDependencies": {
-    "exam": "0.0.5",
+    "exam": "^0.0.7",
     "istanbul": "0.2.11",
     "coveralls": "2.10.0"
-  }
+  },
+  "license": "MIT"
 }

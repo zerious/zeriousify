@@ -1,10 +1,10 @@
 # Zeriousify
 
-[![NPM Version](https://badge.fury.io/js/zeriousify.png)](http://badge.fury.io/js/zeriousify)
-[![Build Status](https://travis-ci.org/lighterio/zeriousify.png?branch=master)](https://travis-ci.org/lighterio/zeriousify)
-[![Code Coverage](https://coveralls.io/repos/lighterio/zeriousify/badge.png?branch=master)](https://coveralls.io/r/lighterio/zeriousify)
-[![Dependencies](https://david-dm.org/lighterio/zeriousify.png?theme=shields.io)](https://david-dm.org/lighterio/zeriousify)
-[![Support](http://img.shields.io/gittip/zerious.png)](https://www.gittip.com/lighterio/)
+[![NPM Version](https://img.shields.io/npm/v/zeriousify.svg) ![Downloads](https://img.shields.io/npm/dm/zeriousify.svg)](https://npmjs.org/package/zeriousify)
+[![Build Status](https://img.shields.io/travis/lighterio/zeriousify.svg)](https://travis-ci.org/lighterio/zeriousify)
+[![Code Coverage](https://img.shields.io/coveralls/lighterio/zeriousify/master.svg)](https://coveralls.io/r/lighterio/zeriousify)
+[![Dependencies](https://img.shields.io/david/lighterio/zeriousify.svg)](https://david-dm.org/lighterio/zeriousify)
+[![Support](https://img.shields.io/gratipay/Lighter.io.svg)](https://gratipay.com/Lighter.io/)
 
 Zeriousify is a Node.js module for ensuring that your package adheres to the Zerious
 Module Standard (ZMS).
