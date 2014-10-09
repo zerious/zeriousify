@@ -14,7 +14,7 @@ catch (e) {
   api = {version: '0.0.0'};
 }
 
-describe('zeriousify', function () {
+describe('Zeriousify', function () {
 
   function getContent(filename) {
     try {
@@ -182,24 +182,6 @@ describe('zeriousify', function () {
     testIgnoreFile('.npmignore', npmignore.split(','));
   });
 
-  if (isModule) {
-    describe('MIT-LICENSE.md', function () {
-      var content = getContent('MIT-LICENSE.md');
-
-      it('exists', function (done) {
-        if (!/MIT License/.test(content)) {
-          var year = (new Date()).getFullYear();
-          fs.readFile(zPath + 'MIT-LICENSE.md', function (err, content) {
-            license = ('' + content).replace(/[0-9]{4}/, year);
-            setContent('MIT-LICENSE.md', license, done);
-          });
-        } else {
-          done();
-        }
-      });
-    });
-  }
-
   describe('README.md', function () {
     var pattern = new RegExp(name, 'i');
     var content = getContent('README.md');
@@ -222,7 +204,8 @@ describe('zeriousify', function () {
         var hasTip = /(gratipay|gittip)\.com/.test(content);
         if (!hasNpm || !hasTravis || !hasCover || !hasDeps || !hasTip) {
           content += '\n' +
-            '[![NPM Version](https://img.shields.io/npm/v/' + name + '.svg) ![Downloads](https://img.shields.io/npm/dm/' + name + '.svg)](https://npmjs.org/package/' + name + '' + name + ')\n' +
+            '[![NPM Version](https://img.shields.io/npm/v/' + name + '.svg)](https://npmjs.org/package/' + name + ')\n' +
+            '[![Downloads](https://img.shields.io/npm/dm/' + name + '.svg)](https://npmjs.org/package/' + name + ')\n' +
             '[![Build Status](https://img.shields.io/travis/lighterio/' + name + '.svg)](https://travis-ci.org/lighterio/' + name + ')\n' +
             '[![Code Coverage](https://img.shields.io/coveralls/lighterio/' + name + '/master.svg)](https://coveralls.io/r/lighterio/' + name + ')\n' +
             '[![Dependencies](https://img.shields.io/david/lighterio/' + name + '.svg)](https://david-dm.org/lighterio/' + name + ')\n' +

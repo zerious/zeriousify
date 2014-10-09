@@ -2,7 +2,7 @@
 
 var cli = require('commander');
 var fs = require('fs');
-var zPath = require.resolve('zeriousify').replace(/zeriousify\.js/, '');
+var zPath = __dirname.replace(/bin$/, '');
 
 cli
   .usage('[options] <module>')
@@ -47,5 +47,5 @@ function test() {
   global.describe = global.it = function (text, callback) {
     callback(function() {});
   };
-  require('zeriousify').test(cli);
+  require('../zeriousify').test(cli);
 }

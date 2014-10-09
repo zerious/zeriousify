@@ -1,6 +1,15 @@
 {
   "name": "zeriousify",
+  "version": "0.1.10",
   "description": "A module for maintaining adherence to the Zerious Module Standard",
+  "dependencies": {
+    "commander": "2.2.0"
+  },
+  "devDependencies": {
+    "exam": "^0.0.8",
+    "istanbul": "0.2.11",
+    "coveralls": "2.10.0"
+  },
   "keywords": [
     "zerious",
     "module",
@@ -15,35 +24,25 @@
     "tabs",
     "spaces"
   ],
-  "version": "0.1.10",
   "main": "zeriousify.js",
   "bin": {
     "zeriousify": "bin/cli.js"
   },
-  "homepage": "http://lighter.io/zeriousify",
-  "repository": "https://github.com/lighterio/zeriousify.git",
-  "bugs": "https://github.com/lighterio/zeriousify/issues",
-  "author": "Sam Eubank <sameubank@gmail.com>",
-  "contributors": [
-    "Sam Eubank <sameubank@gmail.com>"
-  ],
-  "engines": [
-    "node >= 0.2.6"
-  ],
+  "engines": {
+    "node": ">=0.2.6"
+  },
   "scripts": {
     "test": "./node_modules/exam/exam.js",
-    "retest": "./node_modules/exam/exam.js --watch",
     "cover": "istanbul cover ./node_modules/exam/exam.js",
     "report": "open coverage/lcov-report/index.html",
     "coveralls": "istanbul cover ./node_modules/exam/exam.js --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage"
   },
-  "dependencies": {
-    "commander": "2.2.0"
-  },
-  "devDependencies": {
-    "exam": "^0.0.7",
-    "istanbul": "0.2.11",
-    "coveralls": "2.10.0"
-  },
+  "repository": "https://github.com/lighterio/zeriousify.git",
+  "bugs": "https://github.com/lighterio/zeriousify/issues",
+  "homepage": "http://lighter.io/zeriousify",
+  "author": "Sam Eubank <sameubank@gmail.com>",
+  "contributors": [
+    "Sam Eubank <sameubank@gmail.com>"
+  ],
   "license": "MIT"
 }
